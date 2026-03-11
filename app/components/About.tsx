@@ -12,7 +12,7 @@ const skills = [
   },
   {
     category: "Backend & Infrastructure",
-    items: ["Node.js", "PostgreSQL", "MongoDB", "Redis", "Docker", "Prisma", "REST APIs"],
+    items: ["Node.js", "Python", "Django", "PostgreSQL", "MongoDB", "Redis", "Docker", "Prisma", "REST APIs"],
   },
   {
     category: "AI & Automation",
