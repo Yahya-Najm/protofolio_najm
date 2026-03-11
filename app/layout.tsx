@@ -18,6 +18,11 @@ export const metadata: Metadata = {
     "AI Systems Architect and Full-Stack Engineer shipping modern products, automation pipelines, and fine-tuned AI systems. From robust backends to intelligent features.",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
