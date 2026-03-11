@@ -17,7 +17,7 @@ const projects = [
     features: [
       "7 exercise types: MCQ, writing, speaking, coding, fill-in-the-blank, pronunciation & more",
       "In-browser IDE — write and run code without leaving the lesson",
-      "AI evaluation engine gives instant, contextual feedback per submission",
+      "AI feedback loop — continuously re-evaluates responses, delivers targeted feedback, and only moves on when the student gets it right; every attempt is scored",
       "Role system: Admin sees everything, Teachers author content, Students learn by doing",
       "MongoDB stores exercises, lesson sections & dynamic course content",
       "PostgreSQL handles users, classes, lessons & all relational practice data",
@@ -45,7 +45,7 @@ const projects = [
     ],
     tags: ["Next.js", "Three.js", "React Three Fiber", "GLSL Shaders", "OpenAI API", "Framer Motion", "Tailwind CSS"],
     status: "live" as const,
-    link: "https://knowledge-galaxy.vercel.app",
+    link: "https://knowldge-galaxy.vercel.app",
     image: "/projects/galaxy.jpg" as string | null,
     featured: false,
   },
