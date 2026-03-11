@@ -1,6 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
+import { useMobile } from "../hooks/useMobile";
 
 /* ── Animation variants ─────────────────────────────── */
 
@@ -40,12 +42,14 @@ const fadeUp = {
 /* ── Component ──────────────────────────────────────── */
 
 export default function Hero() {
+  const isMobile = useMobile();
+
   return (
     <section
       id="home"
       style={{
         minHeight: "100vh",
-        padding: "0 2.5rem",
+        padding: `0 ${isMobile ? "1.25rem" : "2.5rem"}`,
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -59,9 +63,9 @@ export default function Hero() {
         style={{
           position: "absolute",
           top: "5%",
-          right: "-8%",
-          width: "680px",
-          height: "680px",
+          right: isMobile ? "-30%" : "-8%",
+          width: isMobile ? "300px" : "680px",
+          height: isMobile ? "300px" : "680px",
           borderRadius: "50%",
           background:
             "radial-gradient(circle, rgba(205,255,0,0.07) 0%, transparent 65%)",
@@ -74,9 +78,9 @@ export default function Hero() {
         style={{
           position: "absolute",
           bottom: "10%",
-          left: "-12%",
-          width: "500px",
-          height: "500px",
+          left: isMobile ? "-30%" : "-12%",
+          width: isMobile ? "240px" : "500px",
+          height: isMobile ? "240px" : "500px",
           borderRadius: "50%",
           background:
             "radial-gradient(circle, rgba(205,255,0,0.04) 0%, transparent 70%)",
@@ -95,15 +99,17 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.2 }}
           style={{
             display: "flex",
+            flexDirection: isMobile ? "column" : "row",
             justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: "3rem",
+            alignItems: isMobile ? "flex-start" : "center",
+            gap: isMobile ? "0.625rem" : "0",
+            marginBottom: isMobile ? "2rem" : "3rem",
           }}
         >
           <span
             style={{
               fontFamily: "var(--font-mono)",
-              fontSize: "0.9rem",
+              fontSize: isMobile ? "0.75rem" : "0.9rem",
               letterSpacing: "0.12em",
               textTransform: "uppercase",
               color: "var(--accent)",
@@ -144,7 +150,7 @@ export default function Hero() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          style={{ marginBottom: "4rem" }}
+          style={{ marginBottom: isMobile ? "2.5rem" : "4rem" }}
         >
           {[
             { text: "SHIPPING", accent: false },
@@ -156,7 +162,7 @@ export default function Hero() {
                 variants={lineVariant}
                 style={{
                   display: "block",
-                  fontSize: "clamp(3.5rem, 11vw, 9.5rem)",
+                  fontSize: "clamp(3rem, 11vw, 9.5rem)",
                   fontWeight: 700,
                   letterSpacing: "-0.025em",
                   color: accent ? "var(--accent)" : "var(--fg)",
@@ -173,7 +179,7 @@ export default function Hero() {
             variants={fadeUp}
             style={{
               marginTop: "1.5rem",
-              fontSize: "clamp(1rem, 2vw, 1.25rem)",
+              fontSize: "clamp(0.9375rem, 2vw, 1.25rem)",
               color: "var(--muted)",
               letterSpacing: "0.01em",
               lineHeight: 1.6,
@@ -199,7 +205,15 @@ export default function Hero() {
           }}
         >
           {/* CTA Buttons */}
-          <div style={{ display: "flex", gap: "0.875rem", flexShrink: 0 }}>
+          <div
+            style={{
+              display: "flex",
+              gap: "0.875rem",
+              flexShrink: 0,
+              flexWrap: isMobile ? "wrap" : "nowrap",
+              width: isMobile ? "100%" : "auto",
+            }}
+          >
             <CTAButton href="#work" primary>
               View Project Sample ↓
             </CTAButton>
@@ -216,8 +230,8 @@ export default function Hero() {
           transition={{ delay: 1.4, duration: 0.8 }}
           style={{
             display: "flex",
-            gap: "3rem",
-            marginTop: "5rem",
+            gap: isMobile ? "1.75rem" : "3rem",
+            marginTop: isMobile ? "3rem" : "5rem",
             paddingTop: "2rem",
             borderTop: "1px solid var(--border)",
             flexWrap: "wrap",
@@ -231,7 +245,7 @@ export default function Hero() {
             <div key={label}>
               <div
                 style={{
-                  fontSize: "2rem",
+                  fontSize: isMobile ? "1.625rem" : "2rem",
                   fontWeight: 700,
                   color: "var(--fg)",
                   letterSpacing: "-0.02em",
@@ -305,6 +319,7 @@ function CTAButton({
   children: React.ReactNode;
 }) {
   const [hovered, setHovered] = useState(false);
+  const isMobile = useMobile();
 
   return (
     <a
@@ -314,6 +329,7 @@ function CTAButton({
       style={{
         display: "inline-flex",
         alignItems: "center",
+        justifyContent: "center",
         padding: "0.9375rem 2rem",
         fontSize: "0.8125rem",
         letterSpacing: "0.08em",
@@ -322,6 +338,7 @@ function CTAButton({
         textDecoration: "none",
         fontWeight: 500,
         transition: "all 0.25s ease",
+        flex: isMobile ? "1 1 auto" : "0 0 auto",
         background: primary
           ? hovered
             ? "rgba(205,255,0,0.85)"
@@ -339,6 +356,3 @@ function CTAButton({
     </a>
   );
 }
-
-// Inline useState import (co-located)
-import { useState } from "react";

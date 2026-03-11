@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useMobile } from "../hooks/useMobile";
 
 const stack = [
   "React",
@@ -19,6 +20,8 @@ const stack = [
 const items = [...stack, ...stack];
 
 export default function TechStrip() {
+  const isMobile = useMobile();
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -40,7 +43,7 @@ export default function TechStrip() {
           left: 0,
           top: 0,
           bottom: 0,
-          width: "120px",
+          width: isMobile ? "60px" : "120px",
           background: "linear-gradient(to right, var(--bg), transparent)",
           zIndex: 2,
           pointerEvents: "none",
@@ -52,7 +55,7 @@ export default function TechStrip() {
           right: 0,
           top: 0,
           bottom: 0,
-          width: "120px",
+          width: isMobile ? "60px" : "120px",
           background: "linear-gradient(to left, var(--bg), transparent)",
           zIndex: 2,
           pointerEvents: "none",

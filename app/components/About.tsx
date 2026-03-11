@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import Image from "next/image";
+import { useMobile } from "../hooks/useMobile";
 
 const skills = [
   {
@@ -30,11 +31,13 @@ const contact = [
 ];
 
 export default function About() {
+  const isMobile = useMobile();
+
   return (
     <section
       id="about"
       style={{
-        padding: "7rem 2.5rem",
+        padding: `${isMobile ? "4rem" : "7rem"} ${isMobile ? "1.25rem" : "2.5rem"}`,
         borderTop: "1px solid var(--border)",
       }}
     >
@@ -52,7 +55,7 @@ export default function About() {
             letterSpacing: "0.14em",
             color: "var(--accent)",
             textTransform: "uppercase",
-            marginBottom: "4rem",
+            marginBottom: isMobile ? "2.5rem" : "4rem",
           }}
         >
           [ 03 ] — About
@@ -62,8 +65,8 @@ export default function About() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "1fr 380px",
-            gap: "5rem",
+            gridTemplateColumns: isMobile ? "1fr" : "1fr 380px",
+            gap: isMobile ? "2.5rem" : "5rem",
             alignItems: "start",
           }}
         >
@@ -71,7 +74,7 @@ export default function About() {
           <div>
             {/* Bio */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: isMobile ? 0 : -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number,number,number,number] }}
@@ -181,7 +184,7 @@ export default function About() {
                       style={{
                         color: "var(--accent)",
                         fontFamily: "var(--font-mono)",
-                        fontSize: "0.8125rem",
+                        fontSize: isMobile ? "0.75rem" : "0.8125rem",
                         letterSpacing: "0.04em",
                       }}
                     >
@@ -210,6 +213,8 @@ export default function About() {
                   textTransform: "uppercase",
                   textDecoration: "none",
                   transition: "all 0.25s ease",
+                  width: isMobile ? "100%" : "auto",
+                  justifyContent: isMobile ? "center" : "flex-start",
                 }}
                 whileHover={{
                   background: "var(--accent)",
@@ -305,18 +310,23 @@ export default function About() {
 
           {/* Right — Photo */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x: isMobile ? 0 : 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] as [number,number,number,number], delay: 0.15 }}
-            style={{ position: "sticky", top: "8rem" }}
+            style={{
+              position: isMobile ? "relative" : "sticky",
+              top: isMobile ? "auto" : "8rem",
+              order: isMobile ? -1 : 0,
+            }}
           >
             <div
               style={{
                 position: "relative",
                 width: "100%",
-                aspectRatio: "3/5",
+                aspectRatio: isMobile ? "3/4" : "3/5",
                 overflow: "hidden",
+                maxHeight: isMobile ? "420px" : "none",
               }}
             >
               {/* Subtle accent glow behind photo */}

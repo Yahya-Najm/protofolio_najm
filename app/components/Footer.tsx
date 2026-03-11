@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useMobile } from "../hooks/useMobile";
 
 const socials = [
   { label: "Telegram", href: "https://t.me/YSNajm" },
@@ -10,12 +11,14 @@ const socials = [
 ];
 
 export default function Footer() {
+  const isMobile = useMobile();
+
   return (
     <footer
       id="contact"
       style={{
         borderTop: "1px solid var(--border)",
-        padding: "6rem 2.5rem 3rem",
+        padding: isMobile ? "4rem 1.25rem 2.5rem" : "6rem 2.5rem 3rem",
       }}
     >
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
@@ -26,7 +29,7 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          style={{ marginBottom: "6rem" }}
+          style={{ marginBottom: isMobile ? "3.5rem" : "6rem" }}
         >
           <div
             style={{
@@ -43,7 +46,7 @@ export default function Footer() {
 
           <h2
             style={{
-              fontSize: "clamp(2.5rem, 7vw, 6rem)",
+              fontSize: "clamp(2rem, 7vw, 6rem)",
               fontWeight: 700,
               letterSpacing: "-0.025em",
               lineHeight: 0.95,
@@ -55,7 +58,14 @@ export default function Footer() {
             <span className="shimmer-text">SOMETHING.</span>
           </h2>
 
-          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", alignItems: "center" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: isMobile ? "column" : "row",
+              gap: "1rem",
+              alignItems: isMobile ? "flex-start" : "center",
+            }}
+          >
             <EmailButton />
             <span
               style={{
@@ -74,6 +84,7 @@ export default function Footer() {
                   borderRadius: "50%",
                   background: "var(--accent)",
                   display: "inline-block",
+                  flexShrink: 0,
                 }}
               />
               Currently available for freelance & full-time roles
@@ -121,6 +132,8 @@ export default function Footer() {
 
 function EmailButton() {
   const [hovered, setHovered] = useState(false);
+  const isMobile = useMobile();
+
   return (
     <a
       href="mailto:yahyasafdari0@gmail.com"
@@ -129,6 +142,7 @@ function EmailButton() {
       style={{
         display: "inline-flex",
         alignItems: "center",
+        justifyContent: "center",
         padding: "1rem 2.25rem",
         background: hovered ? "rgba(205,255,0,0.9)" : "var(--accent)",
         color: "var(--bg)",
@@ -141,6 +155,7 @@ function EmailButton() {
         transition: "all 0.25s ease",
         transform: hovered ? "translateY(-2px)" : "translateY(0)",
         boxShadow: hovered ? "0 12px 40px rgba(205,255,0,0.25)" : "none",
+        width: isMobile ? "100%" : "auto",
       }}
     >
       Say Hello →

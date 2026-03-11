@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useMobile } from "../hooks/useMobile";
 
 /* ── Project data ────────────────────────────────────── */
 
@@ -90,12 +91,13 @@ const tools = [
 export default function Work() {
   const featured = projects.find((p) => p.featured)!;
   const rest = projects.filter((p) => !p.featured);
+  const isMobile = useMobile();
 
   return (
     <section
       id="work"
       style={{
-        padding: "7rem 2.5rem",
+        padding: `${isMobile ? "4rem" : "7rem"} ${isMobile ? "1.25rem" : "2.5rem"}`,
         maxWidth: "1200px",
         margin: "0 auto",
       }}
@@ -108,8 +110,10 @@ export default function Work() {
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         style={{
           display: "flex",
+          flexDirection: isMobile ? "column" : "row",
           justifyContent: "space-between",
-          alignItems: "flex-end",
+          alignItems: isMobile ? "flex-start" : "flex-end",
+          gap: isMobile ? "0.75rem" : "0",
           marginBottom: "4rem",
           paddingBottom: "2rem",
           borderBottom: "1px solid var(--border)",
@@ -139,16 +143,18 @@ export default function Work() {
             Projects
           </h2>
         </div>
-        <span
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.75rem",
-            color: "var(--muted)",
-            letterSpacing: "0.06em",
-          }}
-        >
-          From zero to here — my best work
-        </span>
+        {!isMobile && (
+          <span
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.75rem",
+              color: "var(--muted)",
+              letterSpacing: "0.06em",
+            }}
+          >
+            From zero to here — my best work
+          </span>
+        )}
       </motion.div>
 
       {/* ── Featured project ── */}
@@ -185,6 +191,7 @@ export default function Work() {
 
 function FeaturedCard({ project }: { project: (typeof projects)[0] }) {
   const [hovered, setHovered] = useState(false);
+  const isMobile = useMobile();
 
   return (
     <motion.div
@@ -196,7 +203,7 @@ function FeaturedCard({ project }: { project: (typeof projects)[0] }) {
       onMouseLeave={() => setHovered(false)}
       style={{
         display: "grid",
-        gridTemplateColumns: "1fr 1fr",
+        gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
         gap: "0",
         border: `1px solid ${hovered ? "var(--border-light)" : "var(--border)"}`,
         background: "var(--card)",
@@ -209,7 +216,7 @@ function FeaturedCard({ project }: { project: (typeof projects)[0] }) {
       <div
         className={project.image ? undefined : "img-placeholder"}
         style={{
-          aspectRatio: "4/3",
+          aspectRatio: isMobile ? "16/9" : "4/3",
           position: "relative",
           overflow: "hidden",
         }}
@@ -233,7 +240,7 @@ function FeaturedCard({ project }: { project: (typeof projects)[0] }) {
       {/* Info side */}
       <div
         style={{
-          padding: "2.5rem",
+          padding: isMobile ? "1.5rem" : "2.5rem",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
@@ -371,7 +378,7 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
       </div>
 
       {/* Info */}
-      <div style={{ padding: "2rem 2.5rem", display: "flex", flexDirection: "column", flex: 1 }}>
+      <div style={{ padding: "1.5rem", display: "flex", flexDirection: "column", flex: 1 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.75rem" }}>
           <span
             style={{
@@ -477,6 +484,8 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
 /* ── Tools & Automation Section ──────────────────────── */
 
 function ToolsSection() {
+  const isMobile = useMobile();
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -489,8 +498,10 @@ function ToolsSection() {
       <div
         style={{
           display: "flex",
+          flexDirection: isMobile ? "column" : "row",
           justifyContent: "space-between",
-          alignItems: "flex-end",
+          alignItems: isMobile ? "flex-start" : "flex-end",
+          gap: isMobile ? "0.75rem" : "0",
           marginBottom: "2.5rem",
           paddingBottom: "1.5rem",
           borderBottom: "1px solid var(--border)",
@@ -520,19 +531,21 @@ function ToolsSection() {
             Automation & Desktop Tools
           </h3>
         </div>
-        <span
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.6875rem",
-            color: "var(--muted)",
-            letterSpacing: "0.08em",
-            maxWidth: "280px",
-            textAlign: "right",
-            lineHeight: 1.6,
-          }}
-        >
-          Real tools deployed in the academies I worked in — no public repo, built to solve real problems.
-        </span>
+        {!isMobile && (
+          <span
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.6875rem",
+              color: "var(--muted)",
+              letterSpacing: "0.08em",
+              maxWidth: "280px",
+              textAlign: "right",
+              lineHeight: 1.6,
+            }}
+          >
+            Real tools deployed in the academies I worked in — no public repo, built to solve real problems.
+          </span>
+        )}
       </div>
 
       {/* Tool rows */}
@@ -555,6 +568,7 @@ function ToolRow({
   total: number;
 }) {
   const [hovered, setHovered] = useState(false);
+  const isMobile = useMobile();
 
   return (
     <motion.div
@@ -566,8 +580,8 @@ function ToolRow({
       onMouseLeave={() => setHovered(false)}
       style={{
         display: "grid",
-        gridTemplateColumns: "2rem 1fr auto",
-        gap: "1.5rem",
+        gridTemplateColumns: isMobile ? "2rem 1fr" : "2rem 1fr auto",
+        gap: isMobile ? "0.75rem" : "1.5rem",
         alignItems: "start",
         padding: "1.75rem 0",
         borderBottom: index < total - 1 ? "1px solid var(--border)" : "none",
@@ -599,7 +613,6 @@ function ToolRow({
             fontWeight: 600,
             letterSpacing: "-0.01em",
             marginBottom: "0.375rem",
-            color: hovered ? "var(--fg)" : "var(--fg)",
           }}
         >
           {tool.title}
@@ -610,26 +623,37 @@ function ToolRow({
             fontSize: "0.875rem",
             lineHeight: 1.65,
             maxWidth: "560px",
+            marginBottom: isMobile ? "0.75rem" : "0",
           }}
         >
           {tool.description}
         </p>
+        {/* Tags inline on mobile */}
+        {isMobile && (
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.375rem" }}>
+            {tool.tags.map((tag) => (
+              <Tag key={tag} label={tag} />
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Tags */}
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "0.375rem",
-          justifyContent: "flex-end",
-          paddingTop: "0.1em",
-        }}
-      >
-        {tool.tags.map((tag) => (
-          <Tag key={tag} label={tag} />
-        ))}
-      </div>
+      {/* Tags column on desktop */}
+      {!isMobile && (
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "0.375rem",
+            justifyContent: "flex-end",
+            paddingTop: "0.1em",
+          }}
+        >
+          {tool.tags.map((tag) => (
+            <Tag key={tag} label={tag} />
+          ))}
+        </div>
+      )}
     </motion.div>
   );
 }
