@@ -153,9 +153,9 @@ export default function Hero() {
           style={{ marginBottom: isMobile ? "2.5rem" : "4rem" }}
         >
           {[
-            { text: "SHIPPING", accent: false },
-            { text: "FULLSTACK", accent: true },
-            { text: "SYSTEMS.", accent: false },
+            { text: "I BUILD", accent: false },
+            { text: "FULL-STACK", accent: true },
+            { text: "AI PRODUCTS.", accent: false },
           ].map(({ text, accent }) => (
             <div key={text} style={{ overflow: "hidden", lineHeight: 0.92 }}>
               <motion.span

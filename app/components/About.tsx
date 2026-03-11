@@ -16,7 +16,7 @@ const skills = [
   },
   {
     category: "AI & Automation",
-    items: ["LLM Fine-tuning", "OpenAI API", "LangChain", "Prompt Engineering", "Automation Pipelines", "Model Evaluation"],
+    items: ["LLM Fine-tuning", "OpenAI API", "LangChain", "RAG", "Prompt Engineering", "Automation Pipelines", "Model Evaluation"],
   },
   {
     category: "Systems & Tooling",
